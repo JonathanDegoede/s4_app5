@@ -1,6 +1,8 @@
 
 /** @author Ahmed Khoumsi */
 
+import com.sun.source.tree.TryTree;
+
 import java.util.Stack;
 
 /** Cette classe effectue l'analyse syntaxique
@@ -35,10 +37,12 @@ public DescenteRecursive(String file) {
 public ElemAST AnalSynt( ) {
 
   ElemAST ast = this.S();
+  if(this.current_terminal.type != Terminal.Type.eof){
+    this.ErreurSynt("A. Invalid char placement (parenthesis error) : " + "'" + this.current_terminal.chaine + "'" , (this.lexical.ptr - 1));
+  }
 
   return ast;
 }
-
 
 // Methode pour chaque symbole non-terminal de la grammaire retenue
 // ... 
@@ -50,7 +54,7 @@ public ElemAST AnalSynt( ) {
     if(this.current_terminal.type == Terminal.Type.op && this.lexical.isValidChar(current_terminal.chaine.charAt(0), "[+\\-]")){
 
       Terminal op_copy = this.current_terminal;
-      if(this.lexical.resteTerminal()){
+      if(lexical.resteTerminal()){
         this.current_terminal = this.lexical.prochainTerminal();
       }
       ElemAST n2 = S();
@@ -67,7 +71,7 @@ public ElemAST AnalSynt( ) {
 
     if(this.current_terminal.type == Terminal.Type.op && this.lexical.isValidChar(this.current_terminal.chaine.charAt(0), "[*/]")){
       Terminal op_copy = this.current_terminal;
-      if(this.lexical.resteTerminal()){
+      if(lexical.resteTerminal()){
         this.current_terminal = this.lexical.prochainTerminal();
       }
       ElemAST n2 = T();
@@ -85,65 +89,33 @@ public ElemAST AnalSynt( ) {
 
       if(this.current_terminal.chaine.charAt(0) == '('){
 
-        if (this.lexical.resteTerminal()) {
-          this.current_terminal = this.lexical.prochainTerminal();
-        }
+        this.current_terminal = this.lexical.prochainTerminal();
         n = S();
 
         if(this.current_terminal.chaine.charAt(0) == ')'){
-          if (this.lexical.resteTerminal()) {
-            this.current_terminal = this.lexical.prochainTerminal();
-          }
+          this.current_terminal = this.lexical.prochainTerminal();
         }
         else{
-          this.ErreurSynt("Found error at position " + (this.lexical.ptr - 1) + " with unexpected char : " + this.current_terminal.chaine);
+          this.ErreurSynt("U1. Invalid char placement (parenthesis error) : " + "'" + this.current_terminal.chaine + "'", (this.lexical.ptr - 1));
         }
       }
       else{
-        this.ErreurSynt("Found error at position " + (this.lexical.ptr - 1) + " with unexpected char : " + this.current_terminal.chaine);
+        this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "'", (this.lexical.ptr - 1));
       }
     }
     else {
-
       n = new FeuilleAST(this.current_terminal);
-      if (this.lexical.resteTerminal()) {
-        this.current_terminal = this.lexical.prochainTerminal();
-      }
+      this.current_terminal = this.lexical.prochainTerminal();
     }
 
     return n;
   }
 
-//private ElemAST T(){
-//  if(this.current_terminal.type != Terminal.Type.op){
-//    ElemAST n = new FeuilleAST(this.current_terminal);
-//    this.current_terminal = this.lexical.prochainTerminal();
-//    return n;
-//  }
-//  else{
-//    ErreurSynt("Found error at position " + this.lexical.ptr + "with unexpected char : " + this.current_terminal.chaine);
-//  }
-//  return null;
-//}
-//
-//private ElemAST E(){
-//
-//  ElemAST n1 = T();
-//
-//  if(this.current_terminal.type == Terminal.Type.op){
-//    Terminal copy = this.current_terminal; // pas sur
-//    this.current_terminal = this.lexical.prochainTerminal();
-//    ElemAST n2 = E();
-//    n1 = new NoeudAST(n1, n2, copy);
-//  }
-//  return n1;
-//}
-
 /** ErreurSynt() envoie un message d'erreur syntaxique
  */
-public void ErreurSynt(String s)
+public void ErreurSynt(String s, int pos)
 {
-  throw new Error("A syntax error has been detected : " + s);
+  throw new Error("A syntax error has been detected : " + s  + " at position " + pos);
 }
 
   //Methode principale a lancer pour tester l'analyseur syntaxique 
@@ -166,7 +138,7 @@ public void ErreurSynt(String s)
       System.out.println(toWriteEval);
       Writer w = new Writer(args[1],toWriteLect+toWriteEval); // Ecriture de toWrite 
                                                               // dans fichier args[1]
-    } catch (Exception e) {
+    } catch (Error e) {
       System.out.println(e);
       e.printStackTrace();
       System.exit(51);
