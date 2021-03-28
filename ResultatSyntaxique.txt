@@ -1,0 +1,2 @@
+Lecture de l'AST trouve :  (  ( 7 +  ( 2 *  (  ( 4 *  ( 32 * A )  )  + 3 )  )  )  * 2 ) 
+Evaluation de l'AST trouve :  (  ( 7 +  ( 2 *  (  ( 4 *  ( 32 * A )  )  + 3 )  )  )  * 2 ) 
