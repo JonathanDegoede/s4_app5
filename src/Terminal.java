@@ -11,7 +11,7 @@ public class Terminal {
     public Type type;
     public enum Type{
         nb,
-        ch,
+        id,
         op,
         eof
     };

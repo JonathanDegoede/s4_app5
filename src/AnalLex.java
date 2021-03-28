@@ -1,7 +1,5 @@
 /** @author Ahmed Khoumsi */
 
-import javax.swing.plaf.ColorUIResource;
-
 /** Cette classe effectue l'analyse lexicale
  */
 public class AnalLex {
@@ -70,7 +68,7 @@ String expression;
               return new Terminal(chaine, Terminal.Type.eof);
             }
             else{
-              this.ErreurLex("0. Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
+              this.ErreurLex("0. Invalid char placement or unknown char encountered : " + "'" + current_char + "' expected : [0-9|A-Z|+\\-()*/]" , this.ptr);
             }
             break;
 
@@ -94,7 +92,7 @@ String expression;
           }
           else {
             this.ptr--;
-            return new Terminal(chaine, Terminal.Type.ch);
+            return new Terminal(chaine, Terminal.Type.id);
           }
           break;
 
@@ -104,7 +102,7 @@ String expression;
             this.state = 2;
           }
           else{
-            this.ErreurLex("3. Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
+            this.ErreurLex("3. Invalid char placement or unknown char encountered : " + "'" + current_char +  "' expected : [A-Z|a-z]"  , this.ptr);
           }
           break;
 
@@ -139,12 +137,21 @@ String expression;
 
     // Execution de l'analyseur lexical
     Terminal t = null;
+    Error error_msg = null;
     while(lexical.resteTerminal()){
-      t = lexical.prochainTerminal();
-      toWrite +=t.chaine + "\n" ;  // toWrite contient le resultat
-    }				   //    d'analyse lexicale
+      try{
+        t = lexical.prochainTerminal();
+        toWrite +=t.chaine + "\n" ;  // toWrite contient le resultat
+      }
+      catch(Error e){
+        error_msg = e;
+      }
+    }
     System.out.println(toWrite); 	// Ecriture de toWrite sur la console
     Writer w = new Writer(args[1],toWrite); // Ecriture de toWrite dans fichier args[1]
+    if(error_msg !=null){
+      System.out.println(error_msg);
+    }
     System.out.println("Fin d'analyse lexicale");
   }
 }

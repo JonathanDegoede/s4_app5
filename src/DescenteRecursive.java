@@ -23,10 +23,6 @@ public DescenteRecursive(String file) {
   this.file_name = file;
   Reader r = new Reader(this.file_name);
   this.lexical = new AnalLex(r.toString());
-  //this.lexical = new AnalLex(r.toString().replaceAll("[()]", "")); // Creation de l'analyseur lexical
-
-  //A CHANGER : NE PAS ENLEVER LES PARANTHESES , SINON LES PRIORITES SUR LES PARANTHESES SONT FUCKED
-
   this.current_terminal = this.lexical.prochainTerminal();
 }
 
@@ -143,8 +139,8 @@ public void ErreurSynt(String s, int pos)
                                                               // dans fichier args[1]
     } catch (Error e) {
       System.out.println(e);
-      e.printStackTrace();
-      System.exit(51);
+      //e.printStackTrace();
+      //System.exit(51);
     }
     System.out.println("Analyse syntaxique terminee");
   }
