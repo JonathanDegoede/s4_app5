@@ -71,6 +71,10 @@ public class NoeudAST extends ElemAST {
     return " ( " + this.gauche.LectAST() + " " + this.operateur.chaine + " " + this.droit.LectAST() + " ) " ;
   }
 
+  public String Postfix(){
+    return this.gauche.Postfix() + " " + this.droit.Postfix() + " " + this.operateur.chaine;
+  }
+
 }
 
 
