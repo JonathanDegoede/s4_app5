@@ -12,7 +12,8 @@ public class Terminal {
     public enum Type{
         nb,
         ch,
-        op
+        op,
+        eof
     };
 
 /** Un ou deux constructeurs (ou plus, si vous voulez)

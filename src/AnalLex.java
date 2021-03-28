@@ -34,13 +34,20 @@ String expression;
 /** prochainTerminal() retourne le prochain terminal
       Cette methode est une implementation d'un AEF
  */  
-  public Terminal prochainTerminal( ) {
+  public Terminal prochainTerminal() {
 
     String chaine = "";
     this.state = 0;
 
-    while(this.resteTerminal()) {
-      char current_char = this.expression.charAt(this.ptr);
+    while(true) {
+      char current_char;
+
+      if(this.resteTerminal()){
+        current_char = this.expression.charAt(this.ptr);
+      }
+      else{
+        current_char = '\0';
+      }
       this.ptr++;
 
       switch (this.state) {
@@ -58,8 +65,12 @@ String expression;
               chaine += current_char;
               return new Terminal(chaine, Terminal.Type.op);
             }
+            else if(current_char == '\0'){
+              chaine += current_char;
+              return new Terminal(chaine, Terminal.Type.eof);
+            }
             else{
-              this.ErreurLex("Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
+              this.ErreurLex("0. Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
             }
             break;
 
@@ -67,29 +78,23 @@ String expression;
           if(isValidChar(current_char, "[0-9]")){
             chaine += current_char;
           }
-          else if(isValidChar(current_char, "[+\\-()*/]")){
+          else {
             this.ptr--;
             return new Terminal(chaine, Terminal.Type.nb);
-          }
-          else{
-            this.ErreurLex("Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
           }
           break;
 
         case 2:
-          if(isValidChar(current_char, "[A-Z|a-z]")){
+          if(isValidChar(current_char, "[A-Za-z]")){
             chaine += current_char;
           }
           else if(current_char == '_'){
             chaine += current_char;
             this.state = 3;
           }
-          else if(isValidChar(current_char, "[+\\-()*/]")){
+          else {
             this.ptr--;
             return new Terminal(chaine, Terminal.Type.ch);
-          }
-          else{
-            this.ErreurLex("Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
           }
           break;
 
@@ -99,33 +104,33 @@ String expression;
             this.state = 2;
           }
           else{
-            this.ErreurLex("Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
+            this.ErreurLex("3. Invalid char placement or unknown char encountered : " + "'" + current_char + "'" , this.ptr);
           }
           break;
 
         default:
-          throw new Error("this state doesnt exist");
+          throw new Error("D. this state doesnt exist");
       }
     }
 
-    char last_char = chaine.charAt(chaine.length()-1);
-    Terminal.Type type = null;
-
-    if(last_char == '_'){
-      this.ErreurLex("Invalid char placement encountered : " + "'" + last_char + "'" , this.ptr);
-    }
-
-    if(isValidChar(last_char, "[A-Z|a-z]")) {
-      type = Terminal.Type.ch;
-    }
-    else if(isValidChar(last_char, "[0-9]")){
-      type = Terminal.Type.nb;
-    }
-    else if(isValidChar(last_char, "[+\\-()*/]")){
-      type = Terminal.Type.op;
-    }
-
-    return new Terminal(chaine, type);
+//    char last_char = chaine.charAt(chaine.length()-1);
+//    Terminal.Type type = null;
+//
+//    if(last_char == '_'){
+//      this.ErreurLex("Invalid char placement encountered : " + "'" + last_char + "'" , this.ptr);
+//    }
+//
+//    if(isValidChar(last_char, "[A-Z|a-z]")) {
+//      type = Terminal.Type.ch;
+//    }
+//    else if(isValidChar(last_char, "[0-9]")){
+//      type = Terminal.Type.nb;
+//    }
+//    else if(isValidChar(last_char, "[+\\-()*/]")){
+//      type = Terminal.Type.op;
+//    }
+//
+//    return new Terminal(chaine, type);
   }
 
  
