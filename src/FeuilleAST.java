@@ -17,13 +17,17 @@ public class FeuilleAST extends ElemAST {
   /** Evaluation de feuille d'AST
    */
   public String EvalAST( ) {
-      return this.LectAST();
+      return this.symboleTerminal.chaine;
   }
 
  /** Lecture de chaine de caracteres correspondant a la feuille d'AST
   */
   public String LectAST( ) {
     //
+      return this.symboleTerminal.chaine;
+  }
+
+  public String Postfix(){
       return this.symboleTerminal.chaine;
   }
 

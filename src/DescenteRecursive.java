@@ -122,6 +122,7 @@ public void ErreurSynt(String s, int pos)
   public static void main(String[] args) {
     String toWriteLect = "";
     String toWriteEval = "";
+    String toWritePostfix = "";
 
     System.out.println("Debut d'analyse syntaxique");
     if (args.length == 0){
@@ -136,6 +137,8 @@ public void ErreurSynt(String s, int pos)
       System.out.println(toWriteLect);
       toWriteEval += "Evaluation de l'AST trouve : " + RacineAST.EvalAST() + "\n";
       System.out.println(toWriteEval);
+      toWritePostfix += "Postfix de l'AST trouve : " + RacineAST.Postfix() + "\n";
+      System.out.println(toWritePostfix);
       Writer w = new Writer(args[1],toWriteLect+toWriteEval); // Ecriture de toWrite 
                                                               // dans fichier args[1]
     } catch (Error e) {
