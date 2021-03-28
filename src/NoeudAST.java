@@ -65,7 +65,6 @@ public class NoeudAST extends ElemAST {
     return result;
   }
 
-
   /** Lecture de noeud d'AST
    */
   public String LectAST( ) {

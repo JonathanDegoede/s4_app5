@@ -17,13 +17,6 @@ public class FeuilleAST extends ElemAST {
   /** Evaluation de feuille d'AST
    */
   public String EvalAST( ) {
-    //
-//      if(this.symboleTerminal.type == Terminal.Type.nb){
-//          return Integer.valueOf(this.symboleTerminal.chaine);
-//      }
-//      else{
-//          throw new Error("Cannot evaluate this AST because symbol " + "'" + this.symboleTerminal.chaine + "'" + "is not a number");
-//      }
       return this.LectAST();
   }
 

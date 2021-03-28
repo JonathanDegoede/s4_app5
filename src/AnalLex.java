@@ -112,32 +112,12 @@ String expression;
           throw new Error("D. this state doesnt exist");
       }
     }
-
-//    char last_char = chaine.charAt(chaine.length()-1);
-//    Terminal.Type type = null;
-//
-//    if(last_char == '_'){
-//      this.ErreurLex("Invalid char placement encountered : " + "'" + last_char + "'" , this.ptr);
-//    }
-//
-//    if(isValidChar(last_char, "[A-Z|a-z]")) {
-//      type = Terminal.Type.ch;
-//    }
-//    else if(isValidChar(last_char, "[0-9]")){
-//      type = Terminal.Type.nb;
-//    }
-//    else if(isValidChar(last_char, "[+\\-()*/]")){
-//      type = Terminal.Type.op;
-//    }
-//
-//    return new Terminal(chaine, type);
   }
 
- 
 /** ErreurLex() envoie un message d'erreur lexicale
  */ 
   public void ErreurLex(String s, int pos) {
-     throw new Error("Error caused by : " + s + " at position " + pos);//
+     throw new Error("A Lexical error has been detected : " + s + " at position " + pos);//
   }
 
   public boolean isValidChar(char verified_char, String regex){
