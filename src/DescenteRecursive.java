@@ -90,12 +90,13 @@ public ElemAST AnalSynt( ) {
         }
         n = S();
 
-        if(this.current_terminal.chaine.charAt(0) != ')'){
-          this.ErreurSynt("Found error at position " + (this.lexical.ptr - 1) + " with unexpected char : " + this.current_terminal.chaine);
+        if(this.current_terminal.chaine.charAt(0) == ')'){
+          if (this.lexical.resteTerminal()) {
+            this.current_terminal = this.lexical.prochainTerminal();
+          }
         }
-
-        if (this.lexical.resteTerminal()) {
-          this.current_terminal = this.lexical.prochainTerminal();
+        else{
+          this.ErreurSynt("Found error at position " + (this.lexical.ptr - 1) + " with unexpected char : " + this.current_terminal.chaine);
         }
       }
       else{
