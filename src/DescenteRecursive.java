@@ -20,10 +20,15 @@ public class DescenteRecursive {
  */
 public DescenteRecursive(String file) {
     //
-  this.file_name = file;
-  Reader r = new Reader(this.file_name);
-  this.lexical = new AnalLex(r.toString());
-  this.current_terminal = this.lexical.prochainTerminal();
+  try{
+    this.file_name = file;
+    Reader r = new Reader(this.file_name);
+    this.lexical = new AnalLex(r.toString());
+    this.current_terminal = this.lexical.prochainTerminal();
+  }
+  catch(Error e){
+    throw new Error(e);
+  }
 }
 
 
@@ -34,7 +39,7 @@ public ElemAST AnalSynt( ) {
 
   ElemAST ast = this.S();
   if(this.current_terminal.type != Terminal.Type.eof){
-    this.ErreurSynt("A. Invalid char placement (parenthesis error) : " + "'" + this.current_terminal.chaine + "'" , (this.lexical.ptr - 1));
+    this.ErreurSynt("A. Invalid char placement (parenthesis error) : " + "'" + this.current_terminal.chaine + "' expected ' '" , (this.lexical.ptr - 1));
   }
 
   return ast;
@@ -92,11 +97,12 @@ public ElemAST AnalSynt( ) {
           this.current_terminal = this.lexical.prochainTerminal();
         }
         else{
-          this.ErreurSynt("U1. Invalid char placement (parenthesis error) : " + "'" + this.current_terminal.chaine + "'", (this.lexical.ptr - 1));
+          this.ErreurSynt("U1. Invalid char placement (missing parenthesis error) : " + "'" + this.current_terminal.chaine + "' expected ')'", (this.lexical.ptr - 1));
         }
       }
       else{
-        this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "'", (this.lexical.ptr - 1));
+
+        this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "' expected [id|nb]", (this.lexical.ptr - 1));
       }
     }
     else {
@@ -139,8 +145,6 @@ public void ErreurSynt(String s, int pos)
                                                               // dans fichier args[1]
     } catch (Error e) {
       System.out.println(e);
-      //e.printStackTrace();
-      //System.exit(51);
     }
     System.out.println("Analyse syntaxique terminee");
   }
