@@ -3,7 +3,6 @@
 /** Classe Abstraite dont heriteront les classes FeuilleAST et NoeudAST
  */
 public abstract class ElemAST {
-
   
   /** Evaluation d'AST
    */

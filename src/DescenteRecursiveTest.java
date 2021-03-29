@@ -66,7 +66,7 @@ public class DescenteRecursiveTest {
 
     public static void main(String[] args) {
         ArrayList<String> input_files = new ArrayList<>();
-        String output_file = "ResultatLexical.txt";
+        String output_file = "tests/ResultatSyntaxique.txt";
 
         input_files.add("tests/input_synt_1.txt");
         input_files.add("tests/input_synt_2.txt");
