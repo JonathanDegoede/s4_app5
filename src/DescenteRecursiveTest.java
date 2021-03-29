@@ -76,6 +76,7 @@ public class DescenteRecursiveTest {
         input_files.add("tests/input_synt_6.txt");
         input_files.add("tests/input_synt_7.txt");
         input_files.add("tests/input_synt_8.txt");
+        input_files.add("tests/input_synt_9.txt");
         input_files.add("tests/input_ast_1.txt");
         input_files.add("tests/input_ast_2.txt");
         input_files.add("tests/input_ast_3.txt");

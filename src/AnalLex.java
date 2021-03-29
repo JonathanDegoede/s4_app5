@@ -38,13 +38,13 @@ String expression;
     this.state = 0;
 
     while(true) {
-      char current_char;
+      String current_char;
 
       if(this.resteTerminal()){
-        current_char = this.expression.charAt(this.ptr);
+        current_char = String.valueOf(this.expression.charAt(this.ptr));
       }
       else{
-        current_char = '\0';
+        current_char = String.valueOf('\0');
       }
       this.ptr++;
 
@@ -63,7 +63,7 @@ String expression;
               chaine += current_char;
               return new Terminal(chaine, Terminal.Type.op);
             }
-            else if(current_char == '\0'){
+            else if(current_char.equals(String.valueOf('\0'))){
               chaine += current_char;
               return new Terminal(chaine, Terminal.Type.eof);
             }
@@ -86,7 +86,7 @@ String expression;
           if(isValidChar(current_char, "[A-Za-z]")){
             chaine += current_char;
           }
-          else if(current_char == '_'){
+          else if(current_char.equals("_")){
             chaine += current_char;
             this.state = 3;
           }
@@ -118,8 +118,8 @@ String expression;
      throw new Error("A Lexical error has been detected : " + s + " at position " + pos);//
   }
 
-  public boolean isValidChar(char verified_char, String regex){
-    return String.valueOf(verified_char).matches(regex);
+  public boolean isValidChar(String expression, String regex){
+    return String.valueOf(expression).matches(regex);
   }
   
   //Methode principale a lancer pour tester l'analyseur lexical
