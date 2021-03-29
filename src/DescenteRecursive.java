@@ -52,7 +52,7 @@ public ElemAST AnalSynt( ) {
 
     ElemAST n1 = T();
 
-    if(this.current_terminal.type == Terminal.Type.op && this.lexical.isValidChar(current_terminal.chaine.charAt(0), "[+\\-]")){
+    if(this.lexical.isValidChar(current_terminal.chaine, "[+\\-]")){
 
       Terminal op_copy = this.current_terminal;
       if(lexical.resteTerminal()){
@@ -70,7 +70,7 @@ public ElemAST AnalSynt( ) {
 
     ElemAST n1 = U();
 
-    if(this.current_terminal.type == Terminal.Type.op && this.lexical.isValidChar(this.current_terminal.chaine.charAt(0), "[*/]")){
+    if(this.lexical.isValidChar(this.current_terminal.chaine, "[*/]")){
       Terminal op_copy = this.current_terminal;
       if(lexical.resteTerminal()){
         this.current_terminal = this.lexical.prochainTerminal();
@@ -86,28 +86,24 @@ public ElemAST AnalSynt( ) {
 
     ElemAST n = null;
 
-    if (this.current_terminal.type == Terminal.Type.op){
-
-      if(this.current_terminal.chaine.charAt(0) == '('){
+    if(this.current_terminal.chaine.equals("(")){
 
         this.current_terminal = this.lexical.prochainTerminal();
         n = S();
 
-        if(this.current_terminal.chaine.charAt(0) == ')'){
+        if(this.current_terminal.chaine.equals(")")){
           this.current_terminal = this.lexical.prochainTerminal();
         }
         else{
           this.ErreurSynt("U1. Invalid char placement (missing parenthesis error) : " + "'" + this.current_terminal.chaine + "' expected ')'", (this.lexical.ptr - 1));
         }
-      }
-      else{
-
-        this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "' expected [id|nb]", (this.lexical.ptr - 1));
-      }
     }
-    else {
+    else if(this.current_terminal.type == Terminal.Type.id || this.current_terminal.type == Terminal.Type.nb){
       n = new FeuilleAST(this.current_terminal);
       this.current_terminal = this.lexical.prochainTerminal();
+    }
+    else{
+      this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "' expected [id|nb]", (this.lexical.ptr - 1));
     }
 
     return n;
