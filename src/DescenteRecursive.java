@@ -122,6 +122,8 @@ public void ErreurSynt(String s, int pos)
 
   //Methode principale a lancer pour tester l'analyseur syntaxique 
   public static void main(String[] args) {
+
+    long start_time = System.currentTimeMillis();
     String toWriteLect = "";
     String toWriteEval = "";
     String toWritePostfix = "";
@@ -129,8 +131,8 @@ public void ErreurSynt(String s, int pos)
     System.out.println("Debut d'analyse syntaxique");
     if (args.length == 0){
       args = new String [2];
-      args[0] = "ExpArith.txt";
-      args[1] = "ResultatSyntaxique.txt";
+      args[0] = "tests/ExpArith.txt";
+      args[1] = "tests/ResultatSyntaxique.txt";
     }
     DescenteRecursive dr = new DescenteRecursive(args[0]);
     try {
@@ -147,6 +149,8 @@ public void ErreurSynt(String s, int pos)
       System.out.println(e);
     }
     System.out.println("Analyse syntaxique terminee");
+
+    System.out.println(System.currentTimeMillis() - start_time);
   }
 
 }

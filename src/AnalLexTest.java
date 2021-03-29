@@ -57,6 +57,7 @@ public class AnalLexTest {
         input_files.add("tests/input_lex_7.txt");
         input_files.add("tests/input_lex_8.txt");
         input_files.add("tests/input_lex_9.txt");
+        input_files.add("tests/input_lex_10.txt");
 
         AnalLexTest tester = new AnalLexTest(input_files, output_file);
 
