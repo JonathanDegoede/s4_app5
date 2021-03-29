@@ -46,10 +46,17 @@ public class AnalLexTest {
 
     public static void main(String[] args) {
         ArrayList<String> input_files = new ArrayList<>();
-        String output_file = "ResultatLexical.txt";
+        String output_file = "tests/ResultatLexical.txt";
 
-        input_files.add("ExpArith1.txt");
-        input_files.add("ExpArith2.txt");
+        input_files.add("tests/input_lex_1.txt");
+        input_files.add("tests/input_lex_2.txt");
+        input_files.add("tests/input_lex_3.txt");
+        input_files.add("tests/input_lex_4.txt");
+        input_files.add("tests/input_lex_5.txt");
+        input_files.add("tests/input_lex_6.txt");
+        input_files.add("tests/input_lex_7.txt");
+        input_files.add("tests/input_lex_8.txt");
+        input_files.add("tests/input_lex_9.txt");
 
         AnalLexTest tester = new AnalLexTest(input_files, output_file);
 
