@@ -12,23 +12,23 @@ public class AnalLexTest {
 
     public void Test(){
 
-        String toWrite = "";
-        System.out.println("Debut d'analyse lexicale");
+        String to_write = "";
+        System.out.println("Lexical analysis - start");
 
         for(String file : this.input_files){
             Reader r = new Reader(file);
             String expression = r.toString();
             AnalLex lexical = new AnalLex(expression); // Creation de l'analyseur lexical
 
-            toWrite += "\nInput file : " + file + "\n";
-            toWrite += "Input expression : " + expression + "\n";
+            to_write += "\nInput file : " + file + "\n";
+            to_write += "Input expression : " + expression + "\n";
 
             Terminal t = null;
             Error error_msg = null;
             while(lexical.resteTerminal()){
                 try{
                     t = lexical.prochainTerminal();
-                    toWrite += t.type + " " + t.chaine + "\n" ;  // toWrite contient le resultat
+                    to_write += t.type + " " + t.chaine + "\n" ;  // toWrite contient le resultat
                 }
                 catch(Error e){
                     error_msg = e;
@@ -36,26 +36,33 @@ public class AnalLexTest {
                 }
             }
             String error_msg_string = (error_msg == null) ? "none" : error_msg.toString();
-            toWrite += "Error : " + error_msg_string;
-            toWrite += "\n";
+            to_write += "Error : " + error_msg_string;
+            to_write += "\n";
         }
-        System.out.println(toWrite); 	// Ecriture de toWrite sur la console
-        Writer w = new Writer(this.output_file,toWrite); // Ecriture de toWrite dans fichier args[1]
-        System.out.println("Fin d'analyse lexicale");
+        System.out.println(to_write); 	// Ecriture de toWrite sur la console
+        Writer w = new Writer(this.output_file,to_write); // Ecriture de toWrite dans fichier args[1]
+        System.out.println("Lexical analysis - end");
     }
 
     public static void main(String[] args) {
         ArrayList<String> input_files = new ArrayList<>();
-        String output_file = "ResultatLexical.txt";
+        String output_file = "tests/ResultatLexical.txt";
 
-        input_files.add("ExpArith1.txt");
-        input_files.add("ExpArith2.txt");
+        input_files.add("tests/input_lex_1.txt");
+        input_files.add("tests/input_lex_2.txt");
+        input_files.add("tests/input_lex_3.txt");
+        input_files.add("tests/input_lex_4.txt");
+        input_files.add("tests/input_lex_5.txt");
+        input_files.add("tests/input_lex_6.txt");
+        input_files.add("tests/input_lex_7.txt");
+        input_files.add("tests/input_lex_8.txt");
+        input_files.add("tests/input_lex_9.txt");
 
         AnalLexTest tester = new AnalLexTest(input_files, output_file);
 
         //Tests rapport
         tester.Test();
-        
+
         //Test autres
     }
 }

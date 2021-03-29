@@ -68,7 +68,7 @@ String expression;
               return new Terminal(chaine, Terminal.Type.eof);
             }
             else{
-              this.ErreurLex("0. Invalid char placement or unknown char encountered : " + "'" + current_char + "' expected : [0-9|A-Z|+\\-()*/]" , this.ptr);
+              this.ErreurLex("0. Invalid char placement or unknown char encountered : " + "'" + current_char + "' expected : [0-9|A-Z|+\\-()*/]" , this.ptr-1);
             }
             break;
 
@@ -102,7 +102,7 @@ String expression;
             this.state = 2;
           }
           else{
-            this.ErreurLex("3. Invalid char placement or unknown char encountered : " + "'" + current_char +  "' expected : [A-Z|a-z]"  , this.ptr);
+            this.ErreurLex("3. Invalid char placement or unknown char encountered : " + "'" + current_char +  "' expected : [A-Z|a-z]"  , this.ptr-1);
           }
           break;
 

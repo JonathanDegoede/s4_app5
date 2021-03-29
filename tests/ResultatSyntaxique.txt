@@ -1,0 +1,2 @@
+Lecture de l'AST trouve :  ( 55 +  (  ( 2 * 3 )  -  ( 1 * A )  )  ) 
+Evaluation de l'AST trouve :  ( 55 +  ( 6 -  ( 1 * A )  )  ) 
