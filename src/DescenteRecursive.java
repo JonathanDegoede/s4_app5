@@ -103,7 +103,7 @@ public ElemAST AnalSynt( ) {
       this.current_terminal = this.lexical.prochainTerminal();
     }
     else{
-      this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "' expected [id|nb]", (this.lexical.ptr - 1));
+      this.ErreurSynt("U2. Invalid char placement : " + "'" + this.current_terminal.chaine + "' expected [id|nb|(]", (this.lexical.ptr - 1));
     }
 
     return n;
