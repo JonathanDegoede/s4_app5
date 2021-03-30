@@ -128,7 +128,7 @@ String expression;
     System.out.println("Debut d'analyse lexicale");
     if (args.length == 0){
     args = new String [2];
-            args[0] = "ExpArith.txt";
+            args[0] = "tests/ExpArith.txt";
             args[1] = "ResultatLexical.txt";
     }
     Reader r = new Reader(args[0]);
@@ -145,6 +145,7 @@ String expression;
       }
       catch(Error e){
         error_msg = e;
+        break;
       }
     }
     System.out.println(toWrite); 	// Ecriture de toWrite sur la console

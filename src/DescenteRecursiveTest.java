@@ -41,6 +41,7 @@ public class DescenteRecursiveTest {
 
             } catch (Error e) {
                 error_msg = e;
+                
                 evaluation_error = "Evaluation not executed";
             }
             fatal_error = (error_msg == null) ? "none" : error_msg.toString();
