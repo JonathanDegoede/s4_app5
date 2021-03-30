@@ -3,6 +3,7 @@
 
 import com.sun.source.tree.TryTree;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /** Cette classe effectue l'analyse syntaxique
@@ -113,41 +114,40 @@ public ElemAST AnalSynt( ) {
  */
 public void ErreurSynt(String s, int pos)
 {
-  throw new Error("A syntax error has been detected : " + s  + " at position " + pos);
+  String pointer = " ";
+  pointer = pointer.repeat(this.lexical.ptr - 1) + "^";
+  throw new Error("A syntax error has been detected : " + s  + " at position " + pos + "\n" +
+                  "Expression : " + this.lexical.expression + "\n" +
+                  "Position   : " + pointer);
 }
 
   //Methode principale a lancer pour tester l'analyseur syntaxique 
   public static void main(String[] args) {
 
-    long start_time = System.currentTimeMillis();
-    String toWriteLect = "";
-    String toWriteEval = "";
-    String toWritePostfix = "";
+    ArrayList<String> input_files = new ArrayList<>();
+    String output_file = "tests/ResultatSyntaxique.txt";
 
-    System.out.println("Debut d'analyse syntaxique");
-    if (args.length == 0){
-      args = new String [2];
-      args[0] = "tests/ExpArith.txt";
-      args[1] = "tests/ResultatSyntaxique.txt";
-    }
-    DescenteRecursive dr = new DescenteRecursive(args[0]);
-    try {
-      ElemAST RacineAST = dr.AnalSynt();
-      toWriteLect += "Lecture de l'AST trouve : " + RacineAST.LectAST() + "\n";
-      System.out.println(toWriteLect);
-      toWriteEval += "Evaluation de l'AST trouve : " + RacineAST.EvalAST() + "\n";
-      System.out.println(toWriteEval);
-      toWritePostfix += "Postfix de l'AST trouve : " + RacineAST.Postfix() + "\n";
-      System.out.println(toWritePostfix);
-      Writer w = new Writer(args[1],toWriteLect+toWriteEval); // Ecriture de toWrite 
-                                                              // dans fichier args[1]
-    } catch (Error e) {
-      System.out.println(e);
-    }
-    System.out.println("Analyse syntaxique terminee");
+    input_files.add("tests/input_synt_1.txt");
+    input_files.add("tests/input_synt_2.txt");
+    input_files.add("tests/input_synt_3.txt");
+    input_files.add("tests/input_synt_4.txt");
+    input_files.add("tests/input_synt_5.txt");
+    input_files.add("tests/input_synt_6.txt");
+    input_files.add("tests/input_synt_7.txt");
+    input_files.add("tests/input_synt_8.txt");
+    input_files.add("tests/input_synt_9.txt");
+    input_files.add("tests/input_ast_1.txt");
+    input_files.add("tests/input_ast_2.txt");
+    input_files.add("tests/input_ast_3.txt");
+    input_files.add("tests/input_ast_4.txt");
+    input_files.add("tests/input_ast_5.txt");
 
-    System.out.println(System.currentTimeMillis() - start_time);
+    DescenteRecursiveTest tester = new DescenteRecursiveTest(input_files, output_file);
+
+    //Tests rapport
+    tester.Test();
+
+    //Test autres
   }
-
 }
 
