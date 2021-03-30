@@ -1,5 +1,7 @@
 /** @author Ahmed Khoumsi */
 
+import java.util.ArrayList;
+
 /** Cette classe effectue l'analyse lexicale
  */
 public class AnalLex {
@@ -128,35 +130,25 @@ String expression;
   
   //Methode principale a lancer pour tester l'analyseur lexical
   public static void main(String[] args) {
-    String toWrite = "";
-    System.out.println("Debut d'analyse lexicale");
-    if (args.length == 0){
-    args = new String [2];
-            args[0] = "tests/ExpArith.txt";
-            args[1] = "ResultatLexical.txt";
-    }
-    Reader r = new Reader(args[0]);
+    ArrayList<String> input_files = new ArrayList<>();
+    String output_file = "tests/ResultatLexical.txt";
 
-    AnalLex lexical = new AnalLex(r.toString()); // Creation de l'analyseur lexical
+    input_files.add("tests/input_lex_1.txt");
+    input_files.add("tests/input_lex_2.txt");
+    input_files.add("tests/input_lex_3.txt");
+    input_files.add("tests/input_lex_4.txt");
+    input_files.add("tests/input_lex_5.txt");
+    input_files.add("tests/input_lex_6.txt");
+    input_files.add("tests/input_lex_7.txt");
+    input_files.add("tests/input_lex_8.txt");
+    input_files.add("tests/input_lex_9.txt");
+    input_files.add("tests/input_lex_10.txt");
 
-    // Execution de l'analyseur lexical
-    Terminal t = null;
-    Error error_msg = null;
-    while(lexical.resteTerminal()){
-      try{
-        t = lexical.prochainTerminal();
-        toWrite +=t.chaine + "\n" ;  // toWrite contient le resultat
-      }
-      catch(Error e){
-        error_msg = e;
-        break;
-      }
-    }
-    System.out.println(toWrite); 	// Ecriture de toWrite sur la console
-    Writer w = new Writer(args[1],toWrite); // Ecriture de toWrite dans fichier args[1]
-    if(error_msg !=null){
-      System.out.println(error_msg);
-    }
-    System.out.println("Fin d'analyse lexicale");
+    AnalLexTest tester = new AnalLexTest(input_files, output_file);
+
+    //Tests rapport
+    tester.Test();
+
+    //Test autres
   }
 }
