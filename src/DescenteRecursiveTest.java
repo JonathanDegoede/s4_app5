@@ -19,8 +19,8 @@ public class DescenteRecursiveTest {
 
         for(String file : this.input_files){
 
-
-            to_write+= "\nInput file : " + file + "\n";
+            to_write += "\n--------------------------------------------------------------------------\n";
+            to_write+= "Input file : " + file + "\n";
 
             Error error_msg = null;
             String evaluation_error = null;
@@ -41,12 +41,14 @@ public class DescenteRecursiveTest {
 
             } catch (Error e) {
                 error_msg = e;
-                
                 evaluation_error = "Evaluation not executed";
             }
             fatal_error = (error_msg == null) ? "none" : error_msg.toString();
+            to_write += "----------------------------------------------------------------------------------------------\n";
             to_write += "Fatal Error : " + fatal_error + "\n";
+            to_write += "----------------------------------------------------------------------------------------------\n";
             to_write += "Evaluation Error : " + evaluation_error + "\n";
+            to_write += "----------------------------------------------------------------------------------------------\n";
         }
             System.out.println(to_write);
             Writer w = new Writer(this.output_file,to_write);

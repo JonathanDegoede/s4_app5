@@ -115,7 +115,11 @@ String expression;
 /** ErreurLex() envoie un message d'erreur lexicale
  */ 
   public void ErreurLex(String s, int pos) {
-     throw new Error("A Lexical error has been detected : " + s + " at position " + pos);//
+      String pointer = " ";
+      pointer = pointer.repeat(this.ptr - 1) + "^";
+     throw new Error("A Lexical error has been detected : " + s + " at position " + pos + "\n" +
+             "Expression : " + this.expression + "\n" +
+             "Position   : " + pointer);
   }
 
   public boolean isValidChar(String expression, String regex){

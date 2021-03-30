@@ -20,6 +20,7 @@ public class AnalLexTest {
             String expression = r.toString();
             AnalLex lexical = new AnalLex(expression); // Creation de l'analyseur lexical
 
+            to_write += "\n--------------------------------------------------------------------------\n";
             to_write += "\nInput file : " + file + "\n";
             to_write += "Input expression : " + expression + "\n";
 
@@ -36,8 +37,9 @@ public class AnalLexTest {
                 }
             }
             String error_msg_string = (error_msg == null) ? "none" : error_msg.toString();
-            to_write += "Error : " + error_msg_string;
-            to_write += "\n";
+            to_write += "----------------------------------------------------------------------------------------------\n";
+            to_write += "Fatal error : " + error_msg_string + "\n";
+            to_write += "----------------------------------------------------------------------------------------------\n";
         }
         System.out.println(to_write); 	// Ecriture de toWrite sur la console
         Writer w = new Writer(this.output_file,to_write); // Ecriture de toWrite dans fichier args[1]
