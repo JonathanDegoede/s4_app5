@@ -141,6 +141,7 @@ public void ErreurSynt(String s, int pos)
     input_files.add("tests/input_ast_3.txt");
     input_files.add("tests/input_ast_4.txt");
     input_files.add("tests/input_ast_5.txt");
+    input_files.add("tests/input_ast_6.txt");
 
     DescenteRecursiveTest tester = new DescenteRecursiveTest(input_files, output_file);
 
